@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="4.0" jmeter="4.0 r1823414">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="payPackage_staging_staging" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="payPackage_staging_staging" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">5</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">200</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">30</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="payPackage_staging" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&quot;query&quot;:&quot;query PayPackages($packageType: PayPackageType!) {  packages(type: $packageType) {    __typename    ...PackageFragment  }}fragment MoneyFragment on Money {  __typename  currency  amount  amountCents  currencySymbol  formatted}fragment PackageFragment on PayPackage {  __typename  id  active  description  money {    __typename    ...MoneyFragment  }  type}&quot;,&quot;variables&quot;:{&quot;packageType&quot;:&quot;IN&quot;}}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">phoenix-staging.wunder.org</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/api</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="content-type" elementType="Header">
+              <stringProp name="Header.name">content-type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+            <elementProp name="x-device-ad-id" elementType="Header">
+              <stringProp name="Header.name">x-device-ad-id</stringProp>
+              <stringProp name="Header.value">F4FA6475-5221-4163-B74F-D034B64B14B6</stringProp>
+            </elementProp>
+            <elementProp name="accept" elementType="Header">
+              <stringProp name="Header.name">accept</stringProp>
+              <stringProp name="Header.value">*/*</stringProp>
+            </elementProp>
+            <elementProp name="authorization" elementType="Header">
+              <stringProp name="Header.name">authorization</stringProp>
+              <stringProp name="Header.value">Bearer 9535e30ba24a0f7185b0f192cdd9aee7821bd59e927d15780ec4b6eb3e3f8908bf39c830af72cdfd99e889bc8cb3d8cfa73ff45b6eb5466399645182b24dea2a</stringProp>
+            </elementProp>
+            <elementProp name="x-firebase-token" elementType="Header">
+              <stringProp name="Header.name">x-firebase-token</stringProp>
+              <stringProp name="Header.value">dTzeKIoR9Gw:APA91bEVVueRpeDa_VmTgZ7eqdl9dPbBRzr4Ym5SzNaV19AhKPOBZ2LU0u9tFfgwBFMViSiYBwrW-xWHSzYKy2iD5BcmVWjt1f8eCmvx2GV_cDIvXHCe84ZenWf381kHsL7NVDbH1u4g</stringProp>
+            </elementProp>
+            <elementProp name="x-routing-key" elementType="Header">
+              <stringProp name="Header.name">x-routing-key</stringProp>
+              <stringProp name="Header.value">SrkXovD1dbGkW66ior4isM49ZXEnobd5O96CauVbF5n2qwp42JAyDB4cOGXRCw9VA85vVTnAA8egySsb2SFKpT3LFF5Ax3OB4mQF88y95R1uH8mADyE7f3J2dXBVO0Pl3B245F2B97508CBD8DB46CA7F79278AB5DF5DD8801B68C093CB977508B14D6FE</stringProp>
+            </elementProp>
+            <elementProp name="accept-language" elementType="Header">
+              <stringProp name="Header.name">accept-language</stringProp>
+              <stringProp name="Header.value">en-us</stringProp>
+            </elementProp>
+            <elementProp name="accept-encoding" elementType="Header">
+              <stringProp name="Header.name">accept-encoding</stringProp>
+              <stringProp name="Header.value">br, gzip, deflate</stringProp>
+            </elementProp>
+            <elementProp name="user-agent" elementType="Header">
+              <stringProp name="Header.name">user-agent</stringProp>
+              <stringProp name="Header.value">Wunder/294 CFNetwork/894 Darwin/17.4.0</stringProp>
+            </elementProp>
+            <elementProp name="x-app-version" elementType="Header">
+              <stringProp name="Header.name">x-app-version</stringProp>
+              <stringProp name="Header.value">5.7.1</stringProp>
+            </elementProp>
+            <elementProp name="x-device-type" elementType="Header">
+              <stringProp name="Header.name">x-device-type</stringProp>
+              <stringProp name="Header.value">iOS</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
